@@ -6,16 +6,16 @@
 #    By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 18:46:57 by fileonar          #+#    #+#              #
-#    Updated: 2025/02/07 19:56:43 by fileonar         ###   ########.fr        #
+#    Updated: 2025/02/18 17:28:13 by fileonar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 NAME = push_swap
 
-SRC = main.c functions.c
+SRC = main.c checkers.c utils.c
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 INCLUDES = -I $(LIBFT_DIR)
