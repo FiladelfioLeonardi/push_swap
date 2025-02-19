@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:53:53 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/18 17:48:00 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/19 11:29:51 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,5 @@ int count_elements(char **array);
 
 //CHECKERS
 int check_string(char *argv);
-void check_if_dup(int *nbrs, int nbr);
+int check_if_dup(int *nbrs, int nbr);
 #endif
