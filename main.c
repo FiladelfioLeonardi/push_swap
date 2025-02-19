@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:44:14 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 15:11:53 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:07:26 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,14 @@ static int one_string(char *str)
 		while (split_nbr[i] != NULL)
 		{
 			stacks->stack_a[i] = ft_atoi(split_nbr[i]);
-			ft_printf("stack_a[%d] = %d\n", i, stacks->stack_a[i]);
+			if (stacks->stack_a[i] == -1)
+			{
+				ft_free_n_null((void **)&stacks->stack_a);
+				ft_free_n_null((void **)&stacks);
+				ft_printf("freed stacks and stacks->a\n");
+				return (1);
+			}
+			// ft_printf("stack_a[%d] = %d\n", i, stacks->stack_a[i]);
 			i++;
 		}
 		if (check_if_dup(stacks->stack_a, count) == 1)
@@ -94,7 +101,7 @@ static int more_than_one_string(int argc, char **argv)
 	stacks = malloc(sizeof(t_stack_node));
 	if (stacks == NULL)
 		return (0);
-	stacks->stack_a = malloc(sizeof(int) * argc - 1);
+	stacks->stack_a = malloc(sizeof(int) * (argc - 1));
 	if (stacks->stack_a == NULL)
 		return (0);
 	while (i < argc)
@@ -102,7 +109,7 @@ static int more_than_one_string(int argc, char **argv)
 		if (check_string(argv[i]) != 0)
 		return (1);
 		stacks->stack_a[i - 1] = ft_atoi(argv[i]);
-		ft_printf("stack_a[%d] = %d\n", i - 1, stacks->stack_a[i - 1]);
+		// ft_printf("stack_a[%d] = %d\n", i - 1, stacks->stack_a[i - 1]);
 		i++;
 	}
 	if (check_if_dup(stacks->stack_a, i) == 1)
@@ -113,15 +120,22 @@ static int more_than_one_string(int argc, char **argv)
 		return (1);
 	}
 	return (0);
-
 }
 
 int	main(int argc, char **argv)
 {
 	if (argc < 2)
-		ft_printf("Invalid ammount of arguments\n");
+	{
+		error_msg("Invalid ammount of arguments");
+		return (1);
+	}
+	//at this point i know hat i have at least 2 argc
 	else if (argc == 2)
 	{
+		//i can either have a srting or just one rgument
+		//if i have only one argument error msg and return
+		if (check_min_2_nbrs(argv[1]) == 1)
+			return (1);
 		if (one_string(argv[1]) == 1)
 			return(1);
 	}
@@ -133,3 +147,13 @@ int	main(int argc, char **argv)
 	//	while pushing sort
 	return (0);
 }
+// ./push_swap 1 2 3 4 5
+// ./push_swap "1 2 3 4 5"
+// ./push_swap "1    "
+// ./push_swap 1      
+// ./push_swap "       1"
+// ./push_swap 1 2 3 4 5 a
+// ./push_swap "1 2 3 4 5 a"
+// ./push_swap "1-2 3 4 5"
+// ./push_swap 1-2 3 4 5
+// ./push_swap 

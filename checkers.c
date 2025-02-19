@@ -6,11 +6,34 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:19:30 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 11:29:38 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:07:23 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	check_min_2_nbrs(char *str)
+{
+	int i;
+	int count;
+	
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i - 1] >= '0' && str[i - 1] <= '9')
+		{
+			count++;
+		}
+		i++;
+	}
+	if (count < 2)
+	{
+		error_msg("Error. Not enough numbers");
+		return (1);
+	}
+	return (0);
+}
 
 int	check_if_dup(int *nbrs, int size)
 {
@@ -25,8 +48,8 @@ int	check_if_dup(int *nbrs, int size)
 		{
 			if (nbrs[i] == nbrs[j])
 			{
-				ft_printf("Error. Duplicates found.\n");
-				exit(1);
+				error_msg("Error. Duplicates found.");
+				return(2);
 			}
 			j++;
 		}
@@ -45,22 +68,23 @@ int	check_string(char *argv)
 	//			if we have anything else other than nr, print error;
 	while (argv[i])
 	{
-		if (argv[i] >= '0' && argv[i] <= '9')
+		//if it s a number then ++;
+		if (ft_isdigit(argv[i]) || argv[i] == ' ')
 			i++;
+		//if we have a - or a + then we have to check if we have a next char
 		else if ((argv[i] == '-' || argv[i] == '+') && argv[i + 1])
 		{
 			if (i != 0 && argv[i - 1] != ' ')
 			{
-				ft_printf("Error. put space between numbers\n");
+				error_msg("Error. wrong input for the numbers");
 				return (1);
 			}
 			i++;
 		}
-		else if (argv[i] == ' ')
-			i++;
+		//if we have something else then return error
 		else
 		{
-			ft_printf("Error. wrong input of numbers\n");
+			error_msg("Error. wrong input");
 			return (1);
 		}
 	}
