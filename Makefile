@@ -6,12 +6,14 @@
 #    By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 18:46:57 by fileonar          #+#    #+#              #
-#    Updated: 2025/02/18 18:40:20 by fileonar         ###   ########.fr        #
+#    Updated: 2025/02/19 16:44:22 by fileonar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+# -fsanitize=address
+
 CC = gcc
-CFLAGS = -fsanitize=address -Wall -Werror -Wextra -g 
+CFLAGS =  -Wall -Werror -Wextra -g 
 
 NAME = push_swap
 

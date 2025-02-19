@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:53:53 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 18:12:00 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:26:54 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ typedef struct s_stack_node
 //UTILS
 int count_elements(char **array);
 void	error_msg(char *s);
+int	ft_atol(const char *str);
+
 //CHECKERS
 int check_string(char *argv);
 int check_if_dup(int *nbrs, int nbr);

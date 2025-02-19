@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:27:56 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 16:56:30 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:32:55 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,42 @@ void	error_msg(char *s)
 		return ;
 	write(2, s, ft_strlen(s));
 	write(2, "\n", 1);
+}
+static int	ft_whitespaces(const char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i] == 32 || c[i] == '\t' || c[i] == '\n'
+		|| c[i] == '\v' || c[i] == '\f' || c[i] == '\r')
+		i++;
+	return (i);
+}
+int	ft_atol(const char *str)
+{
+	int	i;
+	long	nr;
+	int	sign;
+
+	nr = 0;
+	sign = 1;
+	i = ft_whitespaces(str);
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	else if (str[i] == '+')
+		i++;
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		nr = nr * 10 + (str[i] - '0');
+		if ((nr * sign) >= INT_MAX || (nr * sign) <= INT_MIN)
+        {
+            // error_msg("Error. Number out of range");
+            return (-1);
+        }
+		i++;
+	}
+	return (nr * sign);
 }

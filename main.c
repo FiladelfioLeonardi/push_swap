@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:44:14 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 19:07:26 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:32:22 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,16 @@ static int one_string(char *str)
 		count = count_elements(split_nbr);
 		// malloc the numbers to stack a
 		stacks->stack_a = malloc(sizeof(int) * count);
-		if (stacks->stack_a == NULL)
-			return (0);
+		if (stacks->stack_a == NULL || stacks->stack_a == 0)
+		{
+			error_msg("Error. Malloc failed");
+			return (1);
+		}
+		
 		// atoi the numbers
 		while (split_nbr[i] != NULL)
 		{
-			stacks->stack_a[i] = ft_atoi(split_nbr[i]);
+			stacks->stack_a[i] = ft_atol(split_nbr[i]);
 			if (stacks->stack_a[i] == -1)
 			{
 				ft_free_n_null((void **)&stacks->stack_a);
@@ -107,8 +111,14 @@ static int more_than_one_string(int argc, char **argv)
 	while (i < argc)
 	{
 		if (check_string(argv[i]) != 0)
-		return (1);
-		stacks->stack_a[i - 1] = ft_atoi(argv[i]);
+			return (1);
+		if ((stacks->stack_a[i - 1] = ft_atol(argv[i])) == -1)
+		{
+			ft_free_n_null((void **)&stacks->stack_a);
+			ft_free_n_null((void **)&stacks);
+			ft_printf("freed stacks and stacks->a\n");
+			return (1);
+		}
 		// ft_printf("stack_a[%d] = %d\n", i - 1, stacks->stack_a[i - 1]);
 		i++;
 	}
@@ -139,9 +149,10 @@ int	main(int argc, char **argv)
 		if (one_string(argv[1]) == 1)
 			return(1);
 	}
-	else if (argc > 2)
+	else
 	{
-		more_than_one_string(argc, argv);
+		if (more_than_one_string(argc, argv) == 1)
+			return (1);
 	}
 	// push everything in stack b
 	//	while pushing sort

@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:19:30 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 19:07:23 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:12:45 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	check_min_2_nbrs(char *str)
 	count = 0;
 	while (str[i])
 	{
-		if (str[i - 1] >= '0' && str[i - 1] <= '9')
+		if ((str[i] >= '0' && str[i] <= '9') && (str[i + 1] == ' '
+			|| str[i + 1] == '\0'))
 		{
 			count++;
 		}
@@ -49,7 +50,7 @@ int	check_if_dup(int *nbrs, int size)
 			if (nbrs[i] == nbrs[j])
 			{
 				error_msg("Error. Duplicates found.");
-				return(2);
+				return(1);
 			}
 			j++;
 		}
