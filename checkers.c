@@ -6,17 +6,32 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:19:30 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 19:12:45 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/21 13:08:41 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+// -2147483648 21474836475
+int check_if_in_bounds(char *str)
+{
+	long nbr;
+
+	nbr = ft_atol(str);
+	printf ("nbr value given by ft_atol = %ld\n", nbr);
+	//here i will have the whole string one number inside
+	if (nbr < INT_MIN || nbr > INT_MAX)
+	{
+		error_msg("Error. Number out of bounds");
+		return (1);
+	}
+    return (0);
+}
 
 int	check_min_2_nbrs(char *str)
 {
 	int i;
 	int count;
-	
+
 	i = 0;
 	count = 0;
 	while (str[i])
@@ -36,7 +51,7 @@ int	check_min_2_nbrs(char *str)
 	return (0);
 }
 
-int	check_if_dup(int *nbrs, int size)
+int	check_if_dup(long *nbrs, int size)
 {
 	int	i;
 	int	j;
@@ -47,6 +62,8 @@ int	check_if_dup(int *nbrs, int size)
 		j = i + 1;
 		while (j < size)
 		{
+			printf("nbrs[%d] in check_if_dup = %ld\n", i, nbrs[i]);
+			printf("nbrs[%d] in check if dup= %ld\n", j, nbrs[j]);
 			if (nbrs[i] == nbrs[j])
 			{
 				error_msg("Error. Duplicates found.");
@@ -59,7 +76,7 @@ int	check_if_dup(int *nbrs, int size)
 	return (0);
 }
 
-// check if the numbers are valid (no duplicates, no chars, no more than int)
+// check if the numbers are valid (chars)
 int	check_string(char *argv)
 {
 	int	i;
@@ -89,9 +106,5 @@ int	check_string(char *argv)
 			return (1);
 		}
 	}
-	// check if the numbers that we have are duplicates;
-	// check if the number is bigger than an integer;
-	// libft ft_isnumber
-	//! ft_isalpha
 	return (0);
 }

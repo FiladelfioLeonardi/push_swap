@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:44:14 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/19 19:32:22 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/02/23 06:30:37 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,85 +52,89 @@ static int one_string(char *str)
 	int				i;
 	int				count;
 
-	// t_stack_node	*stacks;
-	stacks = malloc(sizeof(t_stack_node));
-	if (stacks == NULL)
-		return (0);
-		i = 0;
-		if (check_string(str) != 0)
-			return (1);
-		// split the numbers by space
-		split_nbr = ft_split(str, ' ');
-		// count the elements
-		count = count_elements(split_nbr);
-		// malloc the numbers to stack a
-		stacks->stack_a = malloc(sizeof(int) * count);
-		if (stacks->stack_a == NULL || stacks->stack_a == 0)
-		{
-			error_msg("Error. Malloc failed");
-			return (1);
-		}
-		
-		// atoi the numbers
-		while (split_nbr[i] != NULL)
-		{
-			stacks->stack_a[i] = ft_atol(split_nbr[i]);
-			if (stacks->stack_a[i] == -1)
-			{
-				ft_free_n_null((void **)&stacks->stack_a);
-				ft_free_n_null((void **)&stacks);
-				ft_printf("freed stacks and stacks->a\n");
-				return (1);
-			}
-			// ft_printf("stack_a[%d] = %d\n", i, stacks->stack_a[i]);
-			i++;
-		}
-		if (check_if_dup(stacks->stack_a, count) == 1)
-		{
-			ft_free_n_null((void **)&stacks->stack_a);
-			ft_free_n_null((void **)&stacks);
-			ft_printf("freed stacks and stacks->a\n");
-			return (1);
-		}
-		return (0);
-}
-
-static int more_than_one_string(int argc, char **argv)
-{
-	t_stack_node	*stacks;
-	int				i;
-
-	i = 1;
-	// malloc the numbers to stack a
-	stacks = malloc(sizeof(t_stack_node));
-	if (stacks == NULL)
-		return (0);
-	stacks->stack_a = malloc(sizeof(int) * (argc - 1));
-	if (stacks->stack_a == NULL)
-		return (0);
-	while (i < argc)
+	i = 0;
+	if (check_string(str) != 0)
+		return (1);
+	// split the numbers by space
+	split_nbr = ft_split(str, ' ');
+	//check if the numbers we send (strings) are in bounds
+	while (split_nbr[i] != NULL)
 	{
-		if (check_string(argv[i]) != 0)
-			return (1);
-		if ((stacks->stack_a[i - 1] = ft_atol(argv[i])) == -1)
-		{
-			ft_free_n_null((void **)&stacks->stack_a);
-			ft_free_n_null((void **)&stacks);
-			ft_printf("freed stacks and stacks->a\n");
-			return (1);
-		}
-		// ft_printf("stack_a[%d] = %d\n", i - 1, stacks->stack_a[i - 1]);
+		//check if the number is as long as a bounbds number
+			if (check_if_in_bounds(split_nbr[i]) == 1)
+				return (1);
 		i++;
 	}
-	if (check_if_dup(stacks->stack_a, i) == 1)
+	i = 0;
+	// count the elements
+	count = count_elements(split_nbr);
+	//malloc the stack
+	stacks = malloc(sizeof(t_stack_node));
+	if (stacks == NULL)
+	return (0);
+	// malloc the stack a
+	stacks->stack_a = malloc(sizeof(long) * count);
+	if (stacks->stack_a == NULL || stacks->stack_a == 0)
+	{
+		error_msg("Error. Malloc failed");
+		return (1);
+	}
+	
+	// atol the numbers
+	while (split_nbr[i] != NULL)
+	{
+		stacks->stack_a[i] = ft_atol(split_nbr[i]);
+		ft_printf("stack_a[%d] = %d\n", i, stacks->stack_a[i]);
+		i++;
+	}
+	if (check_if_dup(stacks->stack_a, count) == 1)
 	{
 		ft_free_n_null((void **)&stacks->stack_a);
 		ft_free_n_null((void **)&stacks);
-		ft_printf("freed stacks and stacks->a\n");
+		ft_free_n_null((void **)&split_nbr);
+		error_msg("freed stacks, stacks->a and split_nbr");
 		return (1);
 	}
 	return (0);
 }
+
+// static int more_than_one_string(int argc, char **argv)
+// {
+// 	t_stack_node	*stacks;
+// 	int				i;
+
+// 	i = 1;
+// 	// malloc the numbers to stack a
+// 	stacks = malloc(sizeof(t_stack_node));
+// 	if (stacks == NULL)
+// 		return (0);
+// 	stacks->stack_a = malloc(sizeof(int) * (argc - 1));
+// 	if (stacks->stack_a == NULL)
+// 		return (0);
+// 	while (i < argc)
+// 	{
+// 		if (check_string(argv[i]) != 0)
+// 			return (1);
+// 		if ((stacks->stack_a[i - 1] = ft_atol(argv[i])) < INT_MIN
+// 			|| stacks->stack_a[i - 1] > INT_MAX)
+// 		{
+// 			ft_free_n_null((void **)&stacks->stack_a);
+// 			ft_free_n_null((void **)&stacks);
+// 			ft_printf("freed stacks and stacks->a\n");
+// 			return (1);
+// 		}
+// 		ft_printf("stack_a[%d] = %d\n", i - 1, stacks->stack_a[i - 1]);
+// 		i++;
+// 	}
+// 	if (check_if_dup(stacks->stack_a, i) == 1)
+// 	{
+// 		ft_free_n_null((void **)&stacks->stack_a);
+// 		ft_free_n_null((void **)&stacks);
+// 		ft_printf("freed stacks and stacks->a\n");
+// 		return (1);
+// 	}
+// 	return (0);
+// }
 
 int	main(int argc, char **argv)
 {
@@ -146,18 +150,20 @@ int	main(int argc, char **argv)
 		//if i have only one argument error msg and return
 		if (check_min_2_nbrs(argv[1]) == 1)
 			return (1);
+		//here we already have a string with more than one argument
 		if (one_string(argv[1]) == 1)
 			return(1);
 	}
-	else
-	{
-		if (more_than_one_string(argc, argv) == 1)
-			return (1);
-	}
+	// else
+	// {
+	// 	if (more_than_one_string(argc, argv) == 1)
+	// 		return (1);
+	// }
 	// push everything in stack b
 	//	while pushing sort
 	return (0);
 }
+
 // ./push_swap 1 2 3 4 5
 // ./push_swap "1 2 3 4 5"
 // ./push_swap "1    "
