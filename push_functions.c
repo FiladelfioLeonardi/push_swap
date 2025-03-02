@@ -1,0 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_functions.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/02 09:05:14 by fileonar          #+#    #+#             */
+/*   Updated: 2025/03/02 11:19:17 by fileonar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+void	pa(t_stack_node *stacks)
+{
+	int	count;
+
+	if (stacks->size_b > 0)
+	{
+		count = stacks->size_a - 1;
+		while (count >= 0)
+		{
+			stacks->stack_a[count + 1] = stacks->stack_a[count];
+			count--;
+		}
+		stacks->stack_a[0] = stacks->stack_b[0];
+		stacks->size_a += 1;
+		count = 0;
+		stacks->size_b -= 1;
+		while (count < stacks->size_b)
+		{
+			stacks->stack_b[count] = stacks->stack_b[count + 1];
+			count++;
+		}
+		write(1, "pa\n", 3);
+	}
+}
+
+void	pb(t_stack_node *stacks)
+{
+	int	count;
+
+	if (stacks->size_a > 0)
+	{
+		count = stacks->size_b - 1;
+		while (count >= 0)
+		{
+			stacks->stack_b[count + 1] = stacks->stack_b[count];
+			count--;
+		}
+		stacks->size_b += 1;
+		stacks->stack_b[0] = stacks->stack_a[0];
+		count = 0;
+		stacks->size_a -= 1;
+		while (count < stacks->size_a)
+		{
+			stacks->stack_a[count] = stacks->stack_a[count + 1];
+			count++;
+		}
+		write(1, "pb\n", 3);
+	}
+}
