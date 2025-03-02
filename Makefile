@@ -6,7 +6,7 @@
 #    By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/07 18:46:57 by fileonar          #+#    #+#              #
-#    Updated: 2025/02/19 16:44:22 by fileonar         ###   ########.fr        #
+#    Updated: 2025/03/02 10:02:24 by fileonar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ CFLAGS =  -Wall -Werror -Wextra -g
 
 NAME = push_swap
 
-SRC = main.c checkers.c utils.c
+SRC = main.c checkers.c utils.c utils2.c k_algorithm.c push_functions.c \
+		malloc.c rotate_functions.c reverse_rotate_functions.c \
+		sort_functions.c swap_functions.c
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 INCLUDES = -I $(LIBFT_DIR)

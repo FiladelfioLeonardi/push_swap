@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 15:19:30 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/21 13:08:41 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:09:04 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,60 +51,64 @@ int	check_min_2_nbrs(char *str)
 	return (0);
 }
 
-int	check_if_dup(long *nbrs, int size)
+void	check_if_dup(t_stack_node *stacks)
 {
-	int	i;
-	int	j;
+	int	count;
+	int	count2;
 
-	i = 0;
-	while (i < size)
+	count = 0;
+	while (count < stacks->size_a)
 	{
-		j = i + 1;
-		while (j < size)
+		count2 = count + 1;
+		while (count2 < stacks->size_a)
 		{
-			printf("nbrs[%d] in check_if_dup = %ld\n", i, nbrs[i]);
-			printf("nbrs[%d] in check if dup= %ld\n", j, nbrs[j]);
-			if (nbrs[i] == nbrs[j])
-			{
-				error_msg("Error. Duplicates found.");
-				return(1);
-			}
-			j++;
+			if (stacks->stack_a[count] == stacks->stack_a[count2])
+				error_msg("Duplicate number");
+			count2++;
 		}
-		i++;
+		count++;
 	}
-	return (0);
 }
 
 // check if the numbers are valid (chars)
-int	check_string(char *argv)
+void	check_string(char *stack_a)
 {
 	int	i;
 
 	i = 0;
-	// check if we have only numbers
-	//			if we have anything else other than nr, print error;
-	while (argv[i])
+	while (stack_a[i])
 	{
-		//if it s a number then ++;
-		if (ft_isdigit(argv[i]) || argv[i] == ' ')
+		while (stack_a[i] && (stack_a[i] == ' ' || (stack_a[i] >= 9
+					&& stack_a[i] <= 13)))
 			i++;
-		//if we have a - or a + then we have to check if we have a next char
-		else if ((argv[i] == '-' || argv[i] == '+') && argv[i + 1])
+		if (!stack_a[i])
+			break ;
+		if (stack_a[i] == '-')
 		{
-			if (i != 0 && argv[i - 1] != ' ')
-			{
-				error_msg("Error. wrong input for the numbers");
-				return (1);
-			}
+			if (!(stack_a[i + 1] >= '0' && stack_a[i + 1] <= '9'))
+				error_msg("invalid input");
 			i++;
 		}
-		//if we have something else then return error
-		else
-		{
-			error_msg("Error. wrong input");
-			return (1);
-		}
+		if (!(stack_a[i] >= '0' && stack_a[i] <= '9'))
+			error_msg("invalid input");
+		while (stack_a[i] && (stack_a[i] >= '0' && stack_a[i] <= '9'))
+			i++;
+		if (stack_a[i] && !(stack_a[i] == ' ' || (stack_a[i] >= 9
+					&& stack_a[i] <= 13)))
+			error_msg("invalid input");
 	}
-	return (0);
+}
+
+
+int	check_sorted(t_stack_node *stack)
+{
+	int	count;
+
+	count = 0;
+	while (stack->stack_a[count] == stack->index_stack[count]
+		&& count < stack->size_a)
+		count++;
+	if (count == stack->size_a)
+		return (0);
+	return (1);
 }

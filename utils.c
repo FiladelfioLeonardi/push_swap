@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 17:27:56 by fileonar          #+#    #+#             */
-/*   Updated: 2025/02/21 12:59:40 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:11:30 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,19 @@ int ft_strcmp(char *str1, char *str2)
 	return (str1[i] - str2[i]);
 }
 
-void	error_msg(char *s)
+void	error_msg(char *message, t_stack_node *stacks)
 {
-	if (s == NULL)
-		return ;
-	write(2, s, ft_strlen(s));
-	write(2, "\n", 1);
+	if (stacks)
+	{
+		if (stacks->stack_a)
+			ft_free_n_null((void **)stacks->stack_a);
+		if (stacks->stack_b)
+			ft_free_n_null((void **)stacks->stack_b);
+		if (stacks->index_stack)
+			ft_free_n_null((void **)stacks->index_stack);
+	}
+	ft_printf("Error\n%s\n", message);
+	exit(EXIT_FAILURE);
 }
 
 static int	ft_whitespaces(const char *c)
