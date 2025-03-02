@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/07 16:44:14 by fileonar          #+#    #+#             */
-/*   Updated: 2025/03/02 10:05:03 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/03/02 11:26:54 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[])
 		arg_str = ft_strdup(argv[1]);
 		if (!arg_str)
 		{
-			error_msg("arg_str no no strdup");
+			error_msg("arg_str no no strdup", NULL);
 			return (1);
 		}
 		prepair_stacks(arg_str, &stacks);

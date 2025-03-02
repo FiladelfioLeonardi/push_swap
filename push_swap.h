@@ -6,7 +6,7 @@
 /*   By: fileonar <fileonar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 18:53:53 by fileonar          #+#    #+#             */
-/*   Updated: 2025/03/02 11:12:04 by fileonar         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:18:22 by fileonar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ typedef struct s_stack_node
 
 //UTILS
 int count_elements(char **array);
-void	error_msg(char *message, t_stack_node *stacks);
+void	error_msg(char *message);
+void	error_msg_n_free(char *message, t_stack_node *stacks);
 long	ft_atol(const char *str);
 int ft_strcmp(char *str1, char *str2);
 int	find_min(t_stack_node *stacks);
@@ -37,7 +38,7 @@ int	ft_sqrt(int nb);
 int	ft_strlen_index(char *map[]);
 
 //CHECKERS
-void check_string(char *stack_a);
+int	check_string(char *stack_a);
 void	check_if_dup(t_stack_node *stacks);
 int	check_min_2_nbrs(char *str);
 int check_if_in_bounds(char *str);
